@@ -9,12 +9,12 @@
 	<script type="text/javascript" src="js/signals.min.js"></script>
 	<script type="text/javascript" src="js/icon-animation.js"></script>
 	
+	<h1>Icon Animation Test</h1>
+	<p>I pitty the fool that doesn't click the icon!</p>
+	<p id="icon-container"></p>
 	<script type="text/javascript">
 		var animation = new IconAnimation();
-		// animation.updated.add(function(){
-		// 	console.log("updated");
-		// });
-		$(animation.getCanvas()).appendTo("body").click(function(){
+		$(animation.getCanvas()).appendTo("#icon-container").click(function(){
 			animation.fadeIn();
 		});
 	</script>
