@@ -1,0 +1,18 @@
+{
+	"name": "Clear Cache",
+	"version": "0.1.4",
+	"update_url": "http://area51.bigspaceship.com/public/prototypes/chrome-extensions/clear-cache-update.xml",
+	"icons": {
+		"16":"img/icon_16.png",
+		"48":"img/icon_48.png",
+		"128":"img/icon_128.png"
+	},
+	"description": "Clear the browser cache",
+	"background_page": "backgroundpage.html",
+	"browser_action": {
+		"default_icon":		"img/icon_19.png",
+		"default_title":	"Clear Cache"
+	},
+	"options_page": "options.html",
+	"permissions": ["experimental"]
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Clear Cache Options</title>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width"> 
+		
+		<meta name="author" content="Benjamin Bojko" />
+		<meta name="copyright" content="Copyright Big Spaceship 2011. All Rights Reserved." />
+		
+		<link rel="stylesheet" href="css/options.css" type="text/css" charset="utf-8">
+		
+		<script type="text/javascript" src="http://use.typekit.com/yab8kgv.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	</head>
+	<body>
+		
+		<div id="main">
+			
+			<section>
+				<h1>Clear Cache</h1>
+				<p>Extension by <a href="https://twitter.com/benjaminbojko">Benjamin Bojko</a>, Icons from <a href="http://iconsweets2.com/">IconSweets2</a></p>
+			</section>
+			
+			<section>
+				<h2>Data to Remove</h2>
+				<!-- <h3>Changes are saved permanently</h3> -->
+				<ul>
+					<li><input type="checkbox" name="data_to_remove" value="cache" /><a href="#">Cache</a></li>
+					<li><input type="checkbox" name="data_to_remove" value="cookies" /><a href="#">Cookies</a></li>
+					<li><input type="checkbox" name="data_to_remove" value="downloads" /><a href="#">Downloads</a></li>
+					<li><input type="checkbox" name="data_to_remove" value="formData" /><a href="#">Form Data</a></li>
+					<li><input type="checkbox" name="data_to_remove" value="history" /><a href="#">History</a></li>
+					<li><input type="checkbox" name="data_to_remove" value="passwords" /><a href="#">Passwords</a></li>
+				</ul>
+			</section>
+			
+			<section>
+				<h2>Time Period</h2>
+				<!-- <h3>Changes are saved permanently</h3> -->
+				<ul>
+					<li><input type="radio" name="timeperiod" value="last_hour" /><a href="#">Last Hour</a></li>
+					<li><input type="radio" name="timeperiod" value="last_day" /><a href="#">Last Day</a></li>
+					<li><input type="radio" name="timeperiod" value="last_week" /><a href="#">Last Week</a></li>
+					<li><input type="radio" name="timeperiod" value="last_month" /><a href="#">Last Month</a></li>
+					<li><input type="radio" name="timeperiod" value="everything" /><a href="#">Everything</a></li>
+				</ul>
+			</section>
+		</div>
+		
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/load-default-options.js"></script>
+		<script type="text/javascript" src="js/options.js"></script>
+	</body>
+</html>

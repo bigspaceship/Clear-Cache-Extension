@@ -1,0 +1,9 @@
+{
+	"name": "Fairly Magical Extension",
+	"version": "1.0.2",
+	"description": "Do magical things with Chrome",
+	"browser_action": {
+		"default_icon":	"icon_19x19.png"
+	},
+	"background_page": "backgroundpage.html"
+}

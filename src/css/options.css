@@ -1,0 +1,132 @@
+/**
+ * 
+ * Color Palette:
+ * http://www.colourlovers.com/palette/1930/cheer_up_emo_kid
+ * 
+ */
+body {
+  margin: 0;
+  padding: 0;
+  background: #e0e4cc url("../img/beige_paper.png") repeat;
+  font-family: ronnia-1, ronnia-2, sans-serif;
+  font-size: 62.5%;
+}
+body, a {
+  color: #556270;
+  text-shadow: 0 1px 1px #fff;
+}
+#main {
+  width: 60em;
+  margin: 6em auto;
+}
+section {
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-box-shadow: 0px 1px 4px 0px rgba(85, 98, 112, 0.5);
+  -moz-box-shadow: 0px 1px 4px 0px rgba(85, 98, 112, 0.5);
+  box-shadow: 0px 1px 4px 0px rgba(85, 98, 112, 0.5);
+  padding: 3em;
+  margin: 4em 0;
+}
+section.two.columns {
+  width: 20em;
+  display: inline-block;
+}
+section.two.columns.a {
+  float: left;
+}
+section.two.columns.b {
+  float: right;
+}
+h1, h2, h3 {
+  font-family: ronnia-1, ronnia-2, sans-serif;
+  font-weight: 700;
+  line-height: 1em;
+  margin: 0 0 0.5em 0;
+  padding: 0;
+}
+h1 {
+  color: #ff6b6b;
+  font-size: 4em;
+  text-align: center;
+  text-transform: none;
+}
+h1:only-child {
+  margin-bottom: 0;
+}
+h2 {
+  color: #ff6b6b;
+  font-size: 3.2em;
+  text-transform: capitalize;
+}
+h3 {
+  font-size: 1.6em;
+  font-weight: 300;
+  text-align: center;
+  text-transform: capitalize;
+  margin: 1.5em 0;
+  padding: 1em 0;
+  border-bottom: 1px dashed rgba(85, 98, 112, 0.25);
+}
+h1 a {
+  color: #ff6b6b;
+}
+h1 + p, h2 + ul, h3 {
+  border-top: 1px dashed rgba(85, 98, 112, 0.25);
+  padding-top: 1em;
+}
+h1 + p {
+  font-size: 1.6em;
+  font-weight: 300;
+  text-align: center;
+  margin: 0 0 -0.75em 0;
+  text-transform: capitalize;
+}
+ul {
+  font-size: 1.6em;
+  margin: 0;
+  padding-left: 1em;
+}
+li {
+  font-family: ronnia-1, ronnia-2, sans-serif;
+  font-weight: 700;
+  font-weight: bold;
+  padding: 0;
+  margin: 0 0 1em 0;
+  list-style: none;
+  display: block;
+  clear: both;
+}
+li:last-child {
+  margin-bottom: 0;
+}
+li a {
+  position: relative;
+  display: inline-block;
+}
+li input[type='checkbox'], li input[type='radio'] {
+  margin-right: 1.6em;
+}
+li input[type='checkbox']:checked + a, li input[type='radio']:checked + a {
+  color: #ff6b6b;
+}
+a {
+  text-decoration: none;
+  /*-webkit-transition:	color 125ms ease-in-out;
+		-moz-transition:	color 125ms ease-in-out;*/
+
+}
+a:hover {
+  /*-webkit-transition:	color 50ms ease-in-out;
+		-moz-transition:	color 50ms ease-in-out;*/
+
+  color: #ff6b6b;
+}
+.feedback {
+  display: none;
+}
+.feedback.success {
+  color: #c7f464;
+}
+.feedback.error {
+  color: #c44d58;
+}
