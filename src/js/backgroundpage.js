@@ -10,16 +10,16 @@
 		/**
 		 * Default values set in load-default-options.js
 		 */
-		var timeperiod		= localStorage['timeperiod'];
 		var dataToRemove	= JSON.parse( localStorage['data_to_remove'] );
-		
+		var timeperiod		= localStorage['timeperiod'];
+		var miliseconds		= timeperiodToMs( timeperiod );
 		var timeout			= NaN;
 		
 		function clearCache(){
 			
 			_iconAnimation.fadeIn();
 			
-			chrome.experimental.clear.browsingData( timeperiod, dataToRemove, function(){
+			chrome.experimental.clear.browsingData( miliseconds, dataToRemove, function(){
 				
 				startTimeout(function(){
 					chrome.browserAction.setBadgeText({text:""});
@@ -44,4 +44,20 @@
 		clearCache();
 		
 	});
+	
+	/**
+	 * @param {string} timeperiod
+	 * @return {number}
+	 */
+	function timeperiodToMs( timeperiod ){
+		switch( timeperiod ){
+			case "last_hour":	return (new Date()).getTime() - 1000 * 60 * 60;
+			case "last_day":	return (new Date()).getTime() - 1000 * 60 * 60 * 24;
+			case "last_week":	return (new Date()).getTime() - 1000 * 60 * 60 * 24 * 7;
+			case "last_month":	return (new Date()).getTime() - 1000 * 60 * 60 * 24 * 7 * 4;
+			case "everything":
+			default:			return 0;
+		}
+		
+	}
 })();

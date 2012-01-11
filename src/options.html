@@ -27,12 +27,18 @@
 				<h2>Data to Remove</h2>
 				<!-- <h3>Changes are saved permanently</h3> -->
 				<ul>
+					<li><input type="checkbox" name="data_to_remove" value="appcache" /><a href="#">App Cache</a></li>
 					<li><input type="checkbox" name="data_to_remove" value="cache" /><a href="#">Cache</a></li>
 					<li><input type="checkbox" name="data_to_remove" value="cookies" /><a href="#">Cookies</a></li>
 					<li><input type="checkbox" name="data_to_remove" value="downloads" /><a href="#">Downloads</a></li>
+					<li><input type="checkbox" name="data_to_remove" value="fileSystems" /><a href="#">File Systems</a></li>
 					<li><input type="checkbox" name="data_to_remove" value="formData" /><a href="#">Form Data</a></li>
 					<li><input type="checkbox" name="data_to_remove" value="history" /><a href="#">History</a></li>
+					<li><input type="checkbox" name="data_to_remove" value="indexedDB" /><a href="#">Indexed DB</a></li>
+					<li><input type="checkbox" name="data_to_remove" value="localStorage" /><a href="#">Local Storage</a></li>
+					<li><input type="checkbox" name="data_to_remove" value="pluginData" /><a href="#">Plugin Data</a></li>
 					<li><input type="checkbox" name="data_to_remove" value="passwords" /><a href="#">Passwords</a></li>
+					<li><input type="checkbox" name="data_to_remove" value="webSQL" /><a href="#">WebSQL</a></li>
 				</ul>
 			</section>
 			
@@ -40,6 +46,7 @@
 				<h2>Time Period</h2>
 				<!-- <h3>Changes are saved permanently</h3> -->
 				<ul>
+					<!-- Extension now API expects miliseconds as values -->
 					<li><input type="radio" name="timeperiod" value="last_hour" /><a href="#">Last Hour</a></li>
 					<li><input type="radio" name="timeperiod" value="last_day" /><a href="#">Last Day</a></li>
 					<li><input type="radio" name="timeperiod" value="last_week" /><a href="#">Last Week</a></li>

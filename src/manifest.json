@@ -1,6 +1,6 @@
 {
 	"name": "Clear Cache",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"update_url": "http://area51.bigspaceship.com/public/prototypes/chrome-extensions/clear-cache-update.xml",
 	"icons": {
 		"16":"img/icon_16.png",
