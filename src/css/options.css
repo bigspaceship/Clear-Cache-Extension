@@ -79,7 +79,6 @@ h1 + p {
   font-weight: 300;
   text-align: center;
   margin: 0 0 -0.75em 0;
-  text-transform: capitalize;
 }
 ul {
   font-size: 1.6em;
