@@ -42,6 +42,18 @@
 			return false;
 		});
 		
+		
+		/**
+		 * Load sub-options instead of deeplinking
+		 */
+		 $("a.suboption").click(function(event){
+ 			event.preventDefault();
+			var listItem	= $(this).parent("li");
+			var suboptions	= $("aside", listItem);
+			suboptions.slideToggle();
+ 			return false;
+		 });
+		
 		/**
 		 * Init
 		 */

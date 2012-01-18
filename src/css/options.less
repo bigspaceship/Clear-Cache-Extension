@@ -99,6 +99,7 @@ h1 a {
 }
 h1 + p,
 h2 + ul,
+h2 + ol,
 h3 {
 	border-top:			1px dashed rgba(85,98,112,0.25);
 	padding-top:		1em;
@@ -114,7 +115,8 @@ h1 + p {
 
 
 
-ul {
+ul,
+ol {
 	font-size:			1.6em;
 	margin:				0;
 	padding-left:		1em;
@@ -144,6 +146,52 @@ li {
 			color:	@color-highlight;
 		}
 	}
+	
+	aside {
+		/* reset font size */
+		font-size:		1/1.6em;
+		/* hide by default */
+/*		display:		none;*/
+		
+		p {
+			display:	block;
+			font-size:			1.6em;
+			font-weight:		300;
+			text-align:			center;
+			text-transform:		capitalize;
+			margin:				1.5em 0;
+			padding:			1em 0;
+			border-top:			1px dashed rgba(85,98,112,0.25);
+			border-bottom:		1px dashed rgba(85,98,112,0.25);
+			
+			input[type='radio'] {
+				margin-right:	0.8em;
+				margin-left:	1.6em;
+				
+				&:first-of-type {
+					margin-left:	0;
+				}
+				
+				&+ label {
+					cursor:		pointer;
+				}
+			}
+		}
+		
+		a.add {
+			display:			inline-block;
+			width:				100%;
+			height:				100%;
+		}
+	}
+	
+	.suboption {
+		font-weight:	100;
+		font-size:		50%;
+		text-transform:	capitalize;
+		vertical-align:	25%;
+		padding-left:	1em;
+	}
 }
 a {
 	text-decoration:	none;
@@ -155,7 +203,6 @@ a:hover {
 		-moz-transition:	color 50ms ease-in-out;*/
 	color:				@color-highlight;
 }
-
 
 .feedback {
 	display:	none;
