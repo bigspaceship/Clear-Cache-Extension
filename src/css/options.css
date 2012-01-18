@@ -48,7 +48,7 @@ h1 {
   color: #ff6b6b;
   font-size: 4em;
   text-align: center;
-  text-transform: none;
+  text-transform: absolute;
 }
 h1:only-child {
   margin-bottom: 0;

@@ -1,6 +1,6 @@
 {
 	"name": "Clear Cache",
-	"version": "0.1.5",
+	"version": "0.1.5.1",
 	"update_url": "https://raw.github.com/bigspaceship/Clear-Cache-Extension/master/bin/clear-cache-update.xml",
 	"icons": {
 		"16":"img/icon_16.png",

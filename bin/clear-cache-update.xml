@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
   <app appid='phhnmfkcbhdhikdlencmfaeocifheedh'>
-    <updatecheck codebase='https://github.com/bigspaceship/Clear-Cache-Extension/raw/master/bin/clear-cache-0.1.5.crx' version='0.1.5' prodversionmin="18.0.1003.1" />
+    <updatecheck codebase='https://github.com/bigspaceship/Clear-Cache-Extension/raw/master/bin/clear-cache-0.1.5.1.crx' version='0.1.5.1' prodversionmin="18.0.1003.1" />
   </app>
 </gupdate>
