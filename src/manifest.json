@@ -1,6 +1,6 @@
 {
 	"name": "Clear Cache",
-	"version": "0.1.5.1",
+	"version": "0.1.6",
 	"update_url": "https://raw.github.com/bigspaceship/Clear-Cache-Extension/master/bin/clear-cache-update.xml",
 	"icons": {
 		"16":"img/icon_16.png",
@@ -14,5 +14,5 @@
 		"default_title":	"Clear Cache"
 	},
 	"options_page": "options.html",
-	"permissions": ["experimental"]
+	"permissions": ["clear","experimental", "cookies", "<all_urls>"]
 }

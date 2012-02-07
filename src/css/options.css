@@ -117,15 +117,13 @@ li aside {
   font-size: 0.625em;
   /* hide by default */
 
-  /*		display:		none;*/
-
+  display: none;
 }
 li aside p {
   display: block;
   font-size: 1.6em;
   font-weight: 300;
   text-align: center;
-  text-transform: capitalize;
   margin: 1.5em 0;
   padding: 1em 0;
   border-top: 1px dashed rgba(85, 98, 112, 0.25);
@@ -141,27 +139,83 @@ li aside p input[type='radio']:first-of-type {
 li aside p input[type='radio'] + label {
   cursor: pointer;
 }
+li aside ol {
+  padding: 0 0 0 0;
+}
+li aside legend {
+  display: none;
+  width: 100%;
+  text-align: center;
+  font-weight: 100;
+  font-size: 1.6em;
+  font-style: italic;
+}
+li aside ol:empty ~ legend {
+  display: block;
+}
+li aside li {
+  display: block;
+  text-align: center;
+}
+li aside input[type='text'] {
+  display: inline-block;
+  width: 85%;
+}
+li aside input[type='text'].error {
+  background: rgba(255, 0, 0, 0.25);
+}
+li aside input[type='text'] + a {
+  display: inline-block;
+  line-height: 1.6em;
+  margin-left: 0.8em;
+}
 li aside a.add {
   display: inline-block;
-  width: 100%;
-  height: 100%;
+  overflow: hidden;
+  background: transparent url('../img/icon_sprite.png') no-repeat 0 -64px;
+  text-indent: -999999px;
+  width: 32px;
+  height: 32px;
 }
-li .suboption {
-  font-weight: 100;
-  font-size: 50%;
-  text-transform: capitalize;
-  vertical-align: 25%;
+li aside a.add:hover {
+  background-position: -32px -64px;
+}
+li aside a.remove {
+  display: inline-block;
+  overflow: hidden;
+  background: transparent url('../img/icon_sprite.png') no-repeat -4px -36px;
+  text-indent: -999999px;
+  width: 24px;
+  height: 24px;
+  -webkit-transform: rotate(0deg) scale(1);
+  -webkit-transition: -webkit-transform 400ms ease-out;
+}
+li aside a.remove:hover {
+  background-position: -36px -36px;
+}
+li aside .hidden a.remove {
+  -webkit-transform: rotate(360deg) scale(0);
+  -webkit-transition: -webkit-transform 200ms ease-in-out;
+}
+li a.filters {
   padding-left: 1em;
+  display: inline-block;
+  overflow: hidden;
+  background: transparent url('../img/icon_sprite.png') no-repeat -6px -6px;
+  text-indent: -999999px;
+  width: 16px;
+  height: 16px;
+}
+li a.filters:hover {
+  background-position: -38px -6px;
 }
 a {
   text-decoration: none;
-  /*-webkit-transition:	color 125ms ease-in-out;
-		-moz-transition:	color 125ms ease-in-out;*/
+  /*-webkit-transition:	color 125ms ease-in-out;*/
 
 }
 a:hover {
-  /*-webkit-transition:	color 50ms ease-in-out;
-		-moz-transition:	color 50ms ease-in-out;*/
+  /*-webkit-transition:	color 50ms ease-in-out;*/
 
   color: #ff6b6b;
 }

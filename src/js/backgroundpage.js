@@ -11,13 +11,19 @@
 		 * Default values set in load-default-options.js
 		 */
 		var dataToRemove	= JSON.parse( localStorage['data_to_remove'] );
+		var cookieSettings	= JSON.parse( localStorage['cookie_settings'] );
 		var timeperiod		= localStorage['timeperiod'];
-		var miliseconds		= timeperiodToMs( timeperiod );
+		var miliseconds		= parseTimeperiod( timeperiod );
 		var timeout			= NaN;
 		
 		function clearCache(){
 			
 			_iconAnimation.fadeIn();
+			
+			if( dataToRemove.cookies && cookieSettings.filters ){
+				dataToRemove.cookies = false;
+				removeCookies( cookieSettings.filters, cookieSettings.inclusive );
+			}
 			
 			chrome.experimental.clear.browsingData( miliseconds, dataToRemove, function(){
 				
@@ -47,9 +53,21 @@
 	
 	/**
 	 * @param {string} timeperiod
-	 * @return {number}
+	 * @return {number|string}
 	 */
-	function timeperiodToMs( timeperiod ){
+	function parseTimeperiod( timeperiod ){
+		
+		/* 
+		 * Chrome updated the clear API with the following patch:
+		 * http://codereview.chromium.org/8932015/
+		 * Make sure that both versions are suppored by checking if
+		 * the new features are supported since both versions use
+		 * different timeperiod formats
+		 */
+		if( !chrome.experimental.clear['localStorage'] ){
+			return timeperiod;
+		}
+		
 		switch( timeperiod ){
 			case "last_hour":	return (new Date()).getTime() - 1000 * 60 * 60;
 			case "last_day":	return (new Date()).getTime() - 1000 * 60 * 60 * 24;
@@ -60,4 +78,67 @@
 		}
 		
 	}
+	
+	
+	/**
+	 * @param {Array.<String>} filters
+	 * @param {boolean} inclusive
+	 */
+	function removeCookies( filters, inclusive ){
+		
+		console.log(filters);
+		
+		// only delete the domains in filters
+		if( inclusive ){
+			
+			$.each( filters, function( filterIndex, filterValue ){
+				chrome.cookies.getAll( {"domain":filterValue}, function( cookies ){
+					
+					$.each( cookies, function(cookieIndex, cookie){
+						var protocol = cookie.secure ? "https://":"http://";
+						var cookieDetails = {
+							"url":	"http://"+cookie.domain,
+							"name":	cookie.name
+						}
+						console.log("removing: ", cookie);
+						chrome.cookies.remove( cookieDetails );
+					});
+				});
+			});
+			
+		// delete all domains except filters
+		} else {
+			
+			var filterMap = {};
+			
+			$.each( filters, function( filterIndex, filterValue ){
+				if( filterValue.indexOf(".")!=0 && filterValue.indexOf("http")!=0 ){
+					filterValue = "."+filterValue;
+				}
+				filterMap[filterValue] = true;
+			});
+			
+			chrome.cookies.getAll( {}, function( cookies ){
+				
+				$.each( cookies, function(cookieIndex, cookie){
+					
+					if( filterMap[cookie.domain] ){
+						console.log("NOT removing: ", cookie);
+						return;
+					}
+					
+					var protocol = cookie.secure ? "https://":"http://";
+					var cookieDetails = {
+						"url":	"http://"+cookie.domain,
+						"name":	cookie.name
+					}
+					
+					console.log("removing: ", cookie);
+					chrome.cookies.remove( cookieDetails );
+				});
+			});
+		}
+		
+	}
+	
 })();
