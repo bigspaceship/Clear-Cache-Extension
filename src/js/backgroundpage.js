@@ -11,7 +11,6 @@
 		 * Default values set in load-default-options.js
 		 */
 		var dataToRemove	= JSON.parse( localStorage['data_to_remove'] );
-		var cookieSettings	= JSON.parse( localStorage['cookie_settings'] );
 		var timeperiod		= parseTimeperiod( localStorage['timeperiod'] );
 		var timeout			= NaN;
 		
