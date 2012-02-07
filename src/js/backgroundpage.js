@@ -11,15 +11,15 @@
 		 * Default values set in load-default-options.js
 		 */
 		var dataToRemove	= JSON.parse( localStorage['data_to_remove'] );
-		var timeperiod		= localStorage['timeperiod'];
-		var miliseconds		= timeperiodToMs( timeperiod );
+		var cookieSettings	= JSON.parse( localStorage['cookie_settings'] );
+		var timeperiod		= parseTimeperiod( localStorage['timeperiod'] );
 		var timeout			= NaN;
 		
 		function clearCache(){
 			
 			_iconAnimation.fadeIn();
 			
-			chrome.experimental.clear.browsingData( miliseconds, dataToRemove, function(){
+			chrome.experimental.clear.browsingData( timeperiod, dataToRemove, function(){
 				
 				startTimeout(function(){
 					chrome.browserAction.setBadgeText({text:""});
@@ -47,9 +47,21 @@
 	
 	/**
 	 * @param {string} timeperiod
-	 * @return {number}
+	 * @return {number|string}
 	 */
-	function timeperiodToMs( timeperiod ){
+	function parseTimeperiod( timeperiod ){
+		
+		/* 
+		 * Chrome updated the clear API with the following patch:
+		 * http://codereview.chromium.org/8932015/
+		 * Make sure that both versions are suppored by checking if
+		 * the new features are supported since both versions use
+		 * different timeperiod formats
+		 */
+		if( !chrome.experimental.clear['localStorage'] ){
+			return timeperiod;
+		}
+		
 		switch( timeperiod ){
 			case "last_hour":	return (new Date()).getTime() - 1000 * 60 * 60;
 			case "last_day":	return (new Date()).getTime() - 1000 * 60 * 60 * 24;
@@ -60,4 +72,5 @@
 		}
 		
 	}
+	
 })();
