@@ -86,8 +86,6 @@
 	 */
 	function removeCookies( filters, inclusive ){
 		
-		console.log(filters);
-		
 		// only delete the domains in filters
 		if( inclusive ){
 			
@@ -100,7 +98,6 @@
 							"url":	"http://"+cookie.domain,
 							"name":	cookie.name
 						}
-						console.log("removing: ", cookie);
 						chrome.cookies.remove( cookieDetails );
 					});
 				});
@@ -123,7 +120,6 @@
 				$.each( cookies, function(cookieIndex, cookie){
 					
 					if( filterMap[cookie.domain] ){
-						console.log("NOT removing: ", cookie);
 						return;
 					}
 					
@@ -133,7 +129,6 @@
 						"name":	cookie.name
 					}
 					
-					console.log("removing: ", cookie);
 					chrome.cookies.remove( cookieDetails );
 				});
 			});
