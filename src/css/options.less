@@ -19,6 +19,9 @@
 @color-highlight:		@palette-d;
 @color-copy:			@palette-a;
 
+@base-font-size:	1.6em;
+@base-line-height:	1.6em;
+
 body {
 	margin:				0;
 	padding:			0;
@@ -70,7 +73,7 @@ h1, h2, h3 {
 }
 h1 {
 	color:				@color-headlines;
-	font-size:			4em;
+	font-size:			2.5*@base-font-size;
 	text-align:			center;
 	text-transform:		absolute;
 	
@@ -80,11 +83,11 @@ h1 {
 }
 h2 {
 	color:				@color-headlines;
-	font-size:			3.2em;
+	font-size:			2*@base-font-size;
 	text-transform:		capitalize;
 }
 h3 {
-	font-size:			1.6em;
+	font-size:			@base-font-size;
 	font-weight:		300;
 	text-align:			center;
 	text-transform:		capitalize;
@@ -99,12 +102,13 @@ h1 a {
 }
 h1 + p,
 h2 + ul,
+h2 + ol,
 h3 {
 	border-top:			1px dashed rgba(85,98,112,0.25);
 	padding-top:		1em;
 }
 h1 + p {
-	font-size:			1.6em;
+	font-size:			@base-font-size;
 	font-weight:		300;
 	text-align:			center;
 	margin:				0 0 -0.75em 0;
@@ -114,8 +118,9 @@ h1 + p {
 
 
 
-ul {
-	font-size:			1.6em;
+ul,
+ol {
+	font-size:			@base-font-size;
 	margin:				0;
 	padding-left:		1em;
 }
@@ -138,24 +143,105 @@ li {
 	}
 	input[type='checkbox'],
 	input[type='radio'] {
-		margin-right:	1.6em;
+		margin-right:	@base-font-size;
 		
 		&:checked + a {
 			color:	@color-highlight;
 		}
 	}
+	
+	aside {
+		/* reset font size */
+		font-size:		1/@base-font-size;
+		/* hide by default */
+		display:		none;
+		
+		p {
+			display:	block;
+			font-size:			@base-font-size;
+			font-weight:		300;
+			text-align:			center;
+			margin:				1.5em 0;
+			padding:			1em 0;
+			border-top:			1px dashed rgba(85,98,112,0.25);
+			border-bottom:		1px dashed rgba(85,98,112,0.25);
+			
+			input[type='radio'] {
+				margin-right:	@base-font-size/2;
+				margin-left:	@base-font-size;
+				
+				&:first-of-type {
+					margin-left:	0;
+				}
+				
+				&+ label {
+					cursor:		pointer;
+				}
+			}
+		}
+		
+		ol {
+			padding:		0 0 0 0;
+		}
+		
+		legend {
+			display:		none;
+			width:			100%;
+			text-align:		center;
+			font-weight:	100;
+			font-size:		@base-font-size;
+			font-style:		italic;
+		}
+		ol:empty ~ legend {
+			display:		block;
+		}
+		
+		li {
+			display:		block;
+			text-align:		center;
+		}
+		
+		input[type='text'] {
+			display:	inline-block;
+			width:		85%;
+			
+			&.error {
+				background:	rgba(255,0,0,0.25);
+			}
+		}
+		input[type='text'] + a {
+			display:		inline-block;
+			line-height:	@base-font-size;
+			margin-left:	@base-font-size/2;
+		}
+		
+		a.add {
+			.sprite('../img/icon_sprite.png', 32px, 32px, 0, 2*32px, 32px, 2*32px);
+		}
+		a.remove {
+			.sprite('../img/icon_sprite.png', 24px, 24px, 4px, 1*32px+4px, 32px+4px, 1*32px+4px);
+			-webkit-transform: rotate(0deg) scale(1);
+			-webkit-transition: -webkit-transform 400ms ease-out;
+		}
+		.hidden a.remove {
+			-webkit-transform: rotate(360deg) scale(0);
+			-webkit-transition: -webkit-transform 200ms ease-in-out;
+		}
+	}
+	
+	a.filters {
+		padding-left:	1em;
+		.sprite('../img/icon_sprite.png', 16px, 16px, 6px, 6px, 32px+6px, 6px);
+	}
 }
 a {
 	text-decoration:	none;
-	/*-webkit-transition:	color 125ms ease-in-out;
-		-moz-transition:	color 125ms ease-in-out;*/
+	/*-webkit-transition:	color 125ms ease-in-out;*/
 }
 a:hover {
-	/*-webkit-transition:	color 50ms ease-in-out;
-		-moz-transition:	color 50ms ease-in-out;*/
+	/*-webkit-transition:	color 50ms ease-in-out;*/
 	color:				@color-highlight;
 }
-
 
 .feedback {
 	display:	none;
@@ -165,5 +251,18 @@ a:hover {
 	}
 	&.error {
 		color:	@palette-e;
+	}
+}
+
+.sprite( @url, @width, @height, @x, @y, @x-hover, @y-hover ){
+	display:		inline-block;
+	overflow:		hidden;
+	background:		transparent url(@url) no-repeat -@x -@y;
+	text-indent:	-999999px;
+	width:			@width;
+	height:			@height;
+	
+	&:hover {
+		background-position:	-@x-hover -@y-hover;
 	}
 }

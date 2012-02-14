@@ -1,0 +1,13 @@
+h1. Clear-Cache
+
+h2. What is this?
+
+Clear-Cache is a Google Chrome extension that gives you instant access to clearing your browser data with a single click.
+
+h2. Why is it not available on the Chrome Web Store yet?
+
+Since clearing the browser cache is still an experimental feature at the moment and the Web Store doesn't allow any extensions using these features to be submitted, Clear-Cache has to be installed manually.
+
+h2. When will it be available in the Chrome Web Store?
+
+Luckily, the Chrome engineers are busy at work on the extensions API and supposedly the Chrome dev channel will soon receive the non-experimental API.

@@ -26,7 +26,15 @@
 				<ul>
 					<li><input type="checkbox" name="data_to_remove" value="appcache" /><a href="#">App Cache</a></li>
 					<li><input type="checkbox" name="data_to_remove" value="cache" /><a href="#">Cache</a></li>
-					<li><input type="checkbox" name="data_to_remove" value="cookies" /><a href="#">Cookies</a></li>
+					<li>
+						<input type="checkbox" name="data_to_remove" value="cookies" /><a href="#">Cookies</a><a href="#" class="filters">filters</a>
+						<aside id="cookie-filters">
+							<p><input type="radio" name="cookies_filter_inclusive" value="yes" id="cookies_filter_inclusive_yes"/><label for="cookies_filter_inclusive_yes">Only clear the following <em>fast</em></label><input type="radio" name="cookies_filter_inclusive" value="no" id="cookies_filter_inclusive_no"/><label for="cookies_filter_inclusive_no">Don't clear the following <em>slow</em></label></p>
+							<ol></ol>
+							<legend>No filters defined</legend>
+							<p><a href="#" class="add">Add Domain</a></p>
+						</aside>
+					</li>
 					<li><input type="checkbox" name="data_to_remove" value="downloads" /><a href="#">Downloads</a></li>
 					<li><input type="checkbox" name="data_to_remove" value="fileSystems" /><a href="#">File Systems</a></li>
 					<li><input type="checkbox" name="data_to_remove" value="formData" /><a href="#">Form Data</a></li>
