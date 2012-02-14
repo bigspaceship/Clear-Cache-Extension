@@ -12,14 +12,19 @@
 		 */
 		var dataToRemove	= JSON.parse( localStorage['data_to_remove'] );
 		var timeperiod		= parseTimeperiod( localStorage['timeperiod'] );
+		var cookieSettings	= JSON.parse( localStorage['cookie_settings'] );
 		var timeout			= NaN;
 		
 		function clearCache(){
 			
 			_iconAnimation.fadeIn();
 			
+			if( dataToRemove.cookies && cookieSettings.filters ){
+				dataToRemove.cookies = false;
+				removeCookies( cookieSettings.filters, cookieSettings.inclusive );
+			}
+			
 			chrome.experimental.clear.browsingData( timeperiod, dataToRemove, function(){
-				
 				startTimeout(function(){
 					chrome.browserAction.setBadgeText({text:""});
 					chrome.browserAction.setPopup({popup:""});
@@ -58,6 +63,7 @@
 		 * different timeperiod formats
 		 */
 		if( !chrome.experimental.clear['localStorage'] ){
+			console.log("ok?");
 			return timeperiod;
 		}
 		
@@ -68,6 +74,63 @@
 			case "last_month":	return (new Date()).getTime() - 1000 * 60 * 60 * 24 * 7 * 4;
 			case "everything":
 			default:			return 0;
+		}
+		
+	}
+	
+	
+	/**
+	 * @param {Array.<String>} filters
+	 * @param {boolean} inclusive
+	 */
+	function removeCookies( filters, inclusive ){
+		
+		// only delete the domains in filters
+		if( inclusive ){
+			
+			$.each( filters, function( filterIndex, filterValue ){
+				chrome.cookies.getAll( {"domain":filterValue}, function( cookies ){
+					
+					$.each( cookies, function(cookieIndex, cookie){
+						var protocol = cookie.secure ? "https://":"http://";
+						var cookieDetails = {
+							"url":	"http://"+cookie.domain,
+							"name":	cookie.name
+						}
+						chrome.cookies.remove( cookieDetails );
+					});
+				});
+			});
+			
+		// delete all domains except filters
+		} else {
+			
+			var filterMap = {};
+			
+			$.each( filters, function( filterIndex, filterValue ){
+				if( filterValue.indexOf(".")!=0 && filterValue.indexOf("http")!=0 ){
+					filterValue = "."+filterValue;
+				}
+				filterMap[filterValue] = true;
+			});
+			
+			chrome.cookies.getAll( {}, function( cookies ){
+				
+				$.each( cookies, function(cookieIndex, cookie){
+					
+					if( filterMap[cookie.domain] ){
+						return;
+					}
+					
+					var protocol = cookie.secure ? "https://":"http://";
+					var cookieDetails = {
+						"url":	"http://"+cookie.domain,
+						"name":	cookie.name
+					}
+					
+					chrome.cookies.remove( cookieDetails );
+				});
+			});
 		}
 		
 	}
