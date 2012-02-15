@@ -24,13 +24,26 @@
 				removeCookies( cookieSettings.filters, cookieSettings.inclusive );
 			}
 			
-			chrome.experimental.clear.browsingData( timeperiod, dataToRemove, function(){
-				startTimeout(function(){
-					chrome.browserAction.setBadgeText({text:""});
-					chrome.browserAction.setPopup({popup:""});
-					_iconAnimation.fadeOut();
-				}, 500 );
-			});
+			// new API since Chrome Dev 19.0.1041.0
+			if( chrome.experimental['browsingData'] ){
+				chrome.experimental.browsingData.remove( timeperiod, dataToRemove, function(){
+					startTimeout(function(){
+						chrome.browserAction.setBadgeText({text:""});
+						chrome.browserAction.setPopup({popup:""});
+						_iconAnimation.fadeOut();
+					}, 500 );
+				});
+				
+			// old API
+			} else {
+				chrome.experimental.clear.browsingData( timeperiod, dataToRemove, function(){
+					startTimeout(function(){
+						chrome.browserAction.setBadgeText({text:""});
+						chrome.browserAction.setPopup({popup:""});
+						_iconAnimation.fadeOut();
+					}, 500 );
+				});
+			}
 		}
 		
 		function startTimeout( handler, delay ){
@@ -56,14 +69,17 @@
 	function parseTimeperiod( timeperiod ){
 		
 		/* 
+		 * Another patch: http://codereview.chromium.org/9301002/
+		 *
+		 * ...
+		 * 
 		 * Chrome updated the clear API with the following patch:
 		 * http://codereview.chromium.org/8932015/
 		 * Make sure that both versions are suppored by checking if
 		 * the new features are supported since both versions use
 		 * different timeperiod formats
 		 */
-		if( !chrome.experimental.clear['localStorage'] ){
-			console.log("ok?");
+		if( !chrome.experimental['browsingData'] && !(chrome.experimental['clear'] || chrome.experimental.clear['localStorage'])  ){
 			return timeperiod;
 		}
 		
