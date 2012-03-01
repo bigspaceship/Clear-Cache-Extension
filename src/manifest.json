@@ -1,7 +1,7 @@
 {
 	"name": "Clear Cache",
-	"version": "0.2.3",
-	"update_url": "https://raw.github.com/bigspaceship/Clear-Cache-Extension/master/bin/clear-cache-update.xml",
+	"version": "0.3.1",
+	"minimum_chrome_version":"19",
 	"icons": {
 		"16":"img/icon_16.png",
 		"48":"img/icon_48.png",

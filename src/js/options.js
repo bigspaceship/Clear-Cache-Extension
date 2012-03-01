@@ -37,11 +37,11 @@
 		/**
 		 * Use adjacent links to trigger input click
 		 */
-		$("input + a").click(function(event){
+		/*$("input + a").click(function(event){
 			event.preventDefault();
 			$(this).prev().click();
 			return false;
-		});
+		});*/
 		
 		
 		

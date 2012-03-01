@@ -137,15 +137,17 @@ li {
 	&:last-child {
 		margin-bottom:		0;
 	}
-	a {
-		position:			relative;
-		display:			inline-block;
+	a, label {
+		position:		relative;
+		display:		inline-block;
+		cursor:			pointer;
 	}
 	input[type='checkbox'],
 	input[type='radio'] {
 		margin-right:	@base-font-size;
 		
-		&:checked + a {
+		&:checked + a,
+		&:checked + label, {
 			color:	@color-highlight;
 		}
 	}
@@ -238,7 +240,8 @@ a {
 	text-decoration:	none;
 	/*-webkit-transition:	color 125ms ease-in-out;*/
 }
-a:hover {
+a:hover,
+label:hover {
 	/*-webkit-transition:	color 50ms ease-in-out;*/
 	color:				@color-highlight;
 }

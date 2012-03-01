@@ -101,14 +101,18 @@ li {
 li:last-child {
   margin-bottom: 0;
 }
-li a {
+li a, li label {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 li input[type='checkbox'], li input[type='radio'] {
   margin-right: 1.6em;
 }
-li input[type='checkbox']:checked + a, li input[type='radio']:checked + a {
+li input[type='checkbox']:checked + a,
+li input[type='radio']:checked + a,
+li input[type='checkbox']:checked + label,
+li input[type='radio']:checked + label {
   color: #ff6b6b;
 }
 li aside {
@@ -214,7 +218,7 @@ a {
   /*-webkit-transition:	color 125ms ease-in-out;*/
 
 }
-a:hover {
+a:hover, label:hover {
   /*-webkit-transition:	color 50ms ease-in-out;*/
 
   color: #ff6b6b;

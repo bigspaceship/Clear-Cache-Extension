@@ -24,10 +24,10 @@
 				<h2>Data to Remove</h2>
 				<!-- <h3>Changes are saved permanently</h3> -->
 				<ul>
-					<li><input type="checkbox" name="data_to_remove" value="appcache" /><a href="#">App Cache</a></li>
-					<li><input type="checkbox" name="data_to_remove" value="cache" /><a href="#">Cache</a></li>
+					<li><input type="checkbox" name="data_to_remove" value="appcache" id="appcache" /><label for="appcache">App Cache</label></li>
+					<li><input type="checkbox" name="data_to_remove" value="cache" id="cache" /><label for="cache">Cache</label></li>
 					<li>
-						<input type="checkbox" name="data_to_remove" value="cookies" /><a href="#">Cookies</a><a href="#" class="filters">filters</a>
+						<input type="checkbox" name="data_to_remove" value="cookies" id="cookies" /><label for="cookies">Cookies</label><a href="#" class="filters">filters</a>
 						<aside id="cookie-filters">
 							<p><input type="radio" name="cookies_filter_inclusive" value="yes" id="cookies_filter_inclusive_yes"/><label for="cookies_filter_inclusive_yes">Only clear the following <em>fast</em></label><input type="radio" name="cookies_filter_inclusive" value="no" id="cookies_filter_inclusive_no"/><label for="cookies_filter_inclusive_no">Don't clear the following <em>slow</em></label></p>
 							<ol></ol>
@@ -35,28 +35,28 @@
 							<p><a href="#" class="add">Add Domain</a></p>
 						</aside>
 					</li>
-					<li><input type="checkbox" name="data_to_remove" value="downloads" /><a href="#">Downloads</a></li>
-					<li><input type="checkbox" name="data_to_remove" value="fileSystems" /><a href="#">File Systems</a></li>
-					<li><input type="checkbox" name="data_to_remove" value="formData" /><a href="#">Form Data</a></li>
-					<li><input type="checkbox" name="data_to_remove" value="history" /><a href="#">History</a></li>
-					<li><input type="checkbox" name="data_to_remove" value="indexedDB" /><a href="#">Indexed DB</a></li>
-					<li><input type="checkbox" name="data_to_remove" value="localStorage" /><a href="#">Local Storage</a></li>
-					<li><input type="checkbox" name="data_to_remove" value="pluginData" /><a href="#">Plugin Data</a></li>
-					<li><input type="checkbox" name="data_to_remove" value="passwords" /><a href="#">Passwords</a></li>
-					<li><input type="checkbox" name="data_to_remove" value="webSQL" /><a href="#">WebSQL</a></li>
+					<li><input type="checkbox" name="data_to_remove" value="downloads" id="downloads" /><label for="downloads">Downloads</label></li>
+					<li><input type="checkbox" name="data_to_remove" value="fileSystems" id="fileSystems" /><label for="fileSystems">File Systems</label></li>
+					<li><input type="checkbox" name="data_to_remove" value="formData" id="formData" /><label for="formData">Form Data</label></li>
+					<li><input type="checkbox" name="data_to_remove" value="history" id="history" /><label for="history">History</label></li>
+					<li><input type="checkbox" name="data_to_remove" value="indexedDB" id="indexedDB" /><label for="indexedDB">Indexed DB</label></li>
+					<li><input type="checkbox" name="data_to_remove" value="localStorage" id="localStorage" /><label for="localStorage">Local Storage</label></li>
+					<li><input type="checkbox" name="data_to_remove" value="originBoundCertificates" id="originBoundCertificates" /><label for="originBoundCertificates">Origin Bound Certificates</label></li>
+					<li><input type="checkbox" name="data_to_remove" value="pluginData" id="pluginData" /><label for="pluginData">Plugin Data</label></li>
+					<li><input type="checkbox" name="data_to_remove" value="passwords" id="passwords" /><label for="passwords">Passwords</label></li>
+					<li><input type="checkbox" name="data_to_remove" value="webSQL" id="webSQL" /><label for="webSQL">WebSQL</label></li>
 				</ul>
 			</section>
-			
 			<section>
 				<h2>Time Period</h2>
 				<!-- <h3>Changes are saved permanently</h3> -->
 				<ul>
 					<!-- Extension now API expects miliseconds as values -->
-					<li><input type="radio" name="timeperiod" value="last_hour" /><a href="#">Last Hour</a></li>
-					<li><input type="radio" name="timeperiod" value="last_day" /><a href="#">Last Day</a></li>
-					<li><input type="radio" name="timeperiod" value="last_week" /><a href="#">Last Week</a></li>
-					<li><input type="radio" name="timeperiod" value="last_month" /><a href="#">Last Month</a></li>
-					<li><input type="radio" name="timeperiod" value="everything" /><a href="#">Everything</a></li>
+					<li><input type="radio" name="timeperiod" value="last_hour" id="last_hour" /><label for="last_hour">Last Hour</label></li>
+					<li><input type="radio" name="timeperiod" value="last_day" id="last_day" /><label for="last_day">Last Day</label></li>
+					<li><input type="radio" name="timeperiod" value="last_week" id="last_week" /><label for="last_week">Last Week</label></li>
+					<li><input type="radio" name="timeperiod" value="last_month" id="last_month" /><label for="last_month">Last Month</label></li>
+					<li><input type="radio" name="timeperiod" value="everything" id="everything" /><label for="everything">Everything</label></li>
 				</ul>
 			</section>
 		</div>
