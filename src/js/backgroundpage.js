@@ -24,8 +24,19 @@
 				removeCookies( cookieSettings.filters, cookieSettings.inclusive );
 			}
 			
-			// new API since Chrome Dev 19.0.1049.3
-			if( chrome.experimental['browsingData'] && chrome.experimental['browsingData']['removeAppcache'] ){
+			
+			// new API since Chrome Dev 19.0.1055.1
+			if( chrome['browsingData'] && chrome['browsingData']['removeAppcache'] ){
+				chrome.browsingData.remove( {'since':timeperiod}, dataToRemove, function(){
+					startTimeout(function(){
+						chrome.browserAction.setBadgeText({text:""});
+						chrome.browserAction.setPopup({popup:""});
+						_iconAnimation.fadeOut();
+					}, 500 );
+				});
+			
+			// new API since Chrome Dev 19.0.1049.3	
+			} else if( chrome.experimental['browsingData'] && chrome.experimental['browsingData']['removeAppcache'] ){
 				chrome.experimental.browsingData.remove( {'since':timeperiod}, dataToRemove, function(){
 					startTimeout(function(){
 						chrome.browserAction.setBadgeText({text:""});
@@ -89,7 +100,7 @@
 		 * the new features are supported since both versions use
 		 * different timeperiod formats
 		 */
-		if( !chrome.experimental['browsingData'] && !(chrome.experimental['clear'] || chrome.experimental.clear['localStorage'])  ){
+		if( !chrome['browsingData'] && !chrome.experimental['browsingData'] && !(chrome.experimental['clear'] || chrome.experimental.clear['localStorage'])  ){
 			return timeperiod;
 		}
 		
