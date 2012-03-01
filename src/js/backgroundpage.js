@@ -36,7 +36,7 @@
 				});
 			
 			// new API since Chrome Dev 19.0.1049.3	
-			} else if( chrome.experimental['browsingData'] && chrome.experimental['browsingData']['removeAppcache'] ){
+			} else if( chrome['experimental'] && chrome['experimental']['browsingData'] && chrome.experimental['browsingData']['removeAppcache'] ){
 				chrome.experimental.browsingData.remove( {'since':timeperiod}, dataToRemove, function(){
 					startTimeout(function(){
 						chrome.browserAction.setBadgeText({text:""});
@@ -46,7 +46,7 @@
 				});
 				
 			// new API since Chrome Dev 19.0.1041.0
-			} else if( chrome.experimental['browsingData'] ){
+			} else if( chrome['experimental']['browsingData'] ){
 				chrome.experimental.browsingData.remove( timeperiod, dataToRemove, function(){
 					startTimeout(function(){
 						chrome.browserAction.setBadgeText({text:""});
@@ -56,14 +56,16 @@
 				});
 				
 			// old API
-			} else {
-				chrome.experimental.clear.browsingData( timeperiod, dataToRemove, function(){
+			} else if( chrome['experimental'] ){
+				chrome['experimental'].clear.browsingData( timeperiod, dataToRemove, function(){
 					startTimeout(function(){
 						chrome.browserAction.setBadgeText({text:""});
 						chrome.browserAction.setPopup({popup:""});
 						_iconAnimation.fadeOut();
 					}, 500 );
 				});
+			} else {
+				console.error( "No matching API found! (Really old browser version?)" );
 			}
 		}
 		

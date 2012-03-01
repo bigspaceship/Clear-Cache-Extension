@@ -14,5 +14,5 @@
 		"default_title":	"Clear Cache"
 	},
 	"options_page": "options.html",
-	"permissions": ["clear", "browsingData", "experimental", "cookies", "<all_urls>"]
+	"permissions": ["clear", "browsingData", "cookies", "<all_urls>"]
 }
