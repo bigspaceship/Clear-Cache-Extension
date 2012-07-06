@@ -13,6 +13,7 @@
 		var dataToRemove	= JSON.parse( localStorage['data_to_remove'] );
 		var timeperiod		= parseTimeperiod( localStorage['timeperiod'] );
 		var cookieSettings	= JSON.parse( localStorage['cookie_settings'] );
+		var autorefresh		= localStorage['autorefresh']=='true';
 		var timeout			= NaN;
 		
 		function clearCache(){
@@ -36,7 +37,7 @@
 				});
 			
 			// new API since Chrome Dev 19.0.1049.3	
-			} else if( chrome.experimental['browsingData'] && chrome.experimental['browsingData']['removeAppcache'] ){
+			} else if( chrome['experimental'] && chrome['experimental']['browsingData'] && chrome.experimental['browsingData']['removeAppcache'] ){
 				chrome.experimental.browsingData.remove( {'since':timeperiod}, dataToRemove, function(){
 					startTimeout(function(){
 						chrome.browserAction.setBadgeText({text:""});
@@ -46,7 +47,7 @@
 				});
 				
 			// new API since Chrome Dev 19.0.1041.0
-			} else if( chrome.experimental['browsingData'] ){
+			} else if( chrome['experimental']['browsingData'] ){
 				chrome.experimental.browsingData.remove( timeperiod, dataToRemove, function(){
 					startTimeout(function(){
 						chrome.browserAction.setBadgeText({text:""});
@@ -56,14 +57,21 @@
 				});
 				
 			// old API
-			} else {
-				chrome.experimental.clear.browsingData( timeperiod, dataToRemove, function(){
+			} else if( chrome['experimental'] ){
+				chrome['experimental'].clear.browsingData( timeperiod, dataToRemove, function(){
 					startTimeout(function(){
 						chrome.browserAction.setBadgeText({text:""});
 						chrome.browserAction.setPopup({popup:""});
 						_iconAnimation.fadeOut();
 					}, 500 );
 				});
+			} else {
+				console.error( "No matching API found! (Really old browser version?)" );
+			}
+			
+			// reload current tab
+			if( autorefresh ){
+				chrome.tabs.reload( tab.id );
 			}
 		}
 		
@@ -127,14 +135,8 @@
 			
 			$.each( filters, function( filterIndex, filterValue ){
 				chrome.cookies.getAll( {"domain":filterValue}, function( cookies ){
-					
 					$.each( cookies, function(cookieIndex, cookie){
-						var protocol = cookie.secure ? "https://":"http://";
-						var cookieDetails = {
-							"url":	"http://"+cookie.domain,
-							"name":	cookie.name
-						}
-						chrome.cookies.remove( cookieDetails );
+						removeCookie( cookie );
 					});
 				});
 			});
@@ -145,7 +147,8 @@
 			var filterMap = {};
 			
 			$.each( filters, function( filterIndex, filterValue ){
-				if( filterValue.indexOf(".")!=0 && filterValue.indexOf("http")!=0 ){
+				var filterSegments = filterValue.split('.');
+				if( filterValue.indexOf(".")!=0 && filterValue.indexOf("http")!=0 && filterValue!="localhost" && (filterSegments.length>2 || filterSegments[2]!='local' ) ){
 					filterValue = "."+filterValue;
 				}
 				filterMap[filterValue] = true;
@@ -158,18 +161,25 @@
 					if( filterMap[cookie.domain] ){
 						return;
 					}
-					
-					var protocol = cookie.secure ? "https://":"http://";
-					var cookieDetails = {
-						"url":	"http://"+cookie.domain,
-						"name":	cookie.name
-					}
-					
-					chrome.cookies.remove( cookieDetails );
+					removeCookie( cookie );
 				});
 			});
 		}
-		
+	}
+	
+	/**
+	 * 
+	 * @param  {Object} cookie
+	 */
+	function removeCookie( cookie ){
+		var protocol = cookie.secure ? "https://":"http://";
+		var cookieDetails = {
+			"url":	protocol+cookie.domain,
+			"name":	cookie.name
+		}
+		chrome.cookies.remove( cookieDetails, function( result ){
+			//console.log( 'clear results', result );
+		});
 	}
 	
 })();

@@ -7,6 +7,15 @@
 		var timeperiod		= localStorage['timeperiod'];
 		var dataToRemove	= JSON.parse(localStorage['data_to_remove']);
 		var cookieSettings	= JSON.parse(localStorage['cookie_settings']);
+		var autorefresh		= localStorage['autorefresh']=='true' || false;
+		
+		/**
+		 * Hotfix: 'originBoundCertificates' is not supported any more
+		 */
+		if( dataToRemove['originBoundCertificates'] ){
+			delete dataToRemove['originBoundCertificates'];
+			saveSettings();
+		}
 		
 		/**
 		 * Parse time periods
@@ -34,14 +43,15 @@
 			});
 		});
 		
-		/**
-		 * Use adjacent links to trigger input click
+		/**auto
+		 * Parse autorefresh
 		 */
-		$("input + a").click(function(event){
-			event.preventDefault();
-			$(this).prev().click();
-			return false;
-		});
+		$("input[name='autorefresh']")
+			.prop('checked', autorefresh==true)
+			.change(function(){
+				autorefresh = $(this).prop('checked');
+				saveSettings();
+			});
 		
 		
 		
@@ -74,9 +84,11 @@
    		 */
  		function removeCookieFilter( event ){
     		event.preventDefault();
-   			$(this).parent("li").addClass("hidden").delay(200).slideUp(150, function(){
+    		var listItem = $(this).closest("li");
+   			listItem.addClass("hidden");
+			saveFilters();
+   			listItem.closest("li").delay(200).slideUp(150, function(){
    				$(this).remove();
-				saveFilters();
    			});
     		return false;
  		}
@@ -108,33 +120,37 @@
   		function saveFilters( event ){
   			var filters = [];
 			
-			if( !event || !event.data ){
-				return;
-			}
-			
 			$("#cookie-filters input[type='text']").each(function(){
 				
-				var filter = this.value;
-				
-				if( !filter || filter=='' || filter.length==0 ){
+				// skip filters that are being removed
+				if($(this).closest("li").hasClass("hidden")){
 					return;
 				}
 				
-				if( event.data.validate ){
+				var filter = this.value;
+				
+				if( !filter || filter=='' || filter.length<3 ){
+					return;
+				}
+				
+				if( !event || event.data.validate ){
 					$(this).removeClass("error");
 					
-					var numSegments = getNumDomainSegments( filter );
+					var segments = filter.split(".");
 					
-					// e.g. ".com" or "domain."
-					if( numSegments < 2 ){
+					// error
+					if( segments.length<=1 && filter!="localhost" ){
 						$(this).addClass("error");
 						return;
 						
-					// add "." to something like "google.com"
-					} else if( filter.indexOf(".")!=0 && numSegments <= 2 ){
-						filter = "." + filter;
-						this.value = filter;
+					// success
+					} else {
 						
+						if( segments.length==2 && segments[1]!="local" ){
+							filter = "."+filter;
+						}
+						
+						this.value = filter;
 					}
 				}
 				
@@ -180,27 +196,16 @@
 		function saveSettings(){
 			localStorage['data_to_remove']	= JSON.stringify( dataToRemove );
 			localStorage['timeperiod']		= timeperiod;
+			localStorage['autorefresh']		= autorefresh;
 			localStorage['cookie_settings']	= JSON.stringify( cookieSettings );
 		}
-		function getNumDomainSegments( domain ){
-			var numSegments = 0;
-			var length = domain.length;
-			if( domain.length > 0 ){
-				numSegments = 1;
-			}
-			for(var i=0; i<length; i++){
-				var current = domain.charAt(i);
-				
-				if( current=='/' || current=='?' || current=='#'){
-					break;
-				}
-				
-				if(  i>0 && i<length-1 && current=='.' && last!='.' && domain.charAt(i+1)!='.' ){
-					numSegments++;
-				}
-				var last = current;
-			}
-			return numSegments;
+		
+		/**
+		 * Based on http://daringfireball.net/2010/07/improved_regex_for_matching_urls
+		 */
+		function validateUrl( url ){
+			var regex = /^(?:([a-z0-9+.-]+:\/\/)((?:(?:[a-z0-9-._~!$&'()*+,;=:]|%[0-9A-F]{2})*)@)?((?:[a-z0-9-._~!$&'()*+,;=]|%[0-9A-F]{2})*)(:(?:\d*))?(\/(?:[a-z0-9-._~!$&'()*+,;=:@\/]|%[0-9A-F]{2})*)?|([a-z0-9+.-]+:)(\/?(?:[a-z0-9-._~!$&'()*+,;=:@]|%[0-9A-F]{2})+(?:[a-z0-9-._~!$&'()*+,;=:@\/]|%[0-9A-F]{2})*)?)(\?(?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*)?(#(?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*)?$/i;
+			return url.match( regex );
 		}
 	});
 })();

@@ -11,7 +11,8 @@ body {
   font-family: ronnia-1, ronnia-2, sans-serif;
   font-size: 62.5%;
 }
-body, a {
+body,
+a {
   color: #556270;
   text-shadow: 0 1px 1px #fff;
 }
@@ -37,7 +38,9 @@ section.two.columns.a {
 section.two.columns.b {
   float: right;
 }
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: ronnia-1, ronnia-2, sans-serif;
   font-weight: 700;
   line-height: 1em;
@@ -83,7 +86,8 @@ h1 + p {
   text-align: center;
   margin: 0 0 -0.75em 0;
 }
-ul, ol {
+ul,
+ol {
   font-size: 1.6em;
   margin: 0;
   padding-left: 1em;
@@ -101,14 +105,20 @@ li {
 li:last-child {
   margin-bottom: 0;
 }
-li a {
+li a,
+li label {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
-li input[type='checkbox'], li input[type='radio'] {
+li input[type='checkbox'],
+li input[type='radio'] {
   margin-right: 1.6em;
 }
-li input[type='checkbox']:checked + a, li input[type='radio']:checked + a {
+li input[type='checkbox']:checked + a,
+li input[type='radio']:checked + a,
+li input[type='checkbox']:checked + label,
+li input[type='radio']:checked + label {
   color: #ff6b6b;
 }
 li aside {
@@ -214,7 +224,8 @@ a {
   /*-webkit-transition:	color 125ms ease-in-out;*/
 
 }
-a:hover {
+a:hover,
+label:hover {
   /*-webkit-transition:	color 50ms ease-in-out;*/
 
   color: #ff6b6b;
