@@ -13,6 +13,7 @@
 		var dataToRemove	= JSON.parse( localStorage['data_to_remove'] );
 		var timeperiod		= parseTimeperiod( localStorage['timeperiod'] );
 		var cookieSettings	= JSON.parse( localStorage['cookie_settings'] );
+		var autorefresh		= localStorage['autorefresh']=='true';
 		var timeout			= NaN;
 		
 		function clearCache(){
@@ -66,6 +67,11 @@
 				});
 			} else {
 				console.error( "No matching API found! (Really old browser version?)" );
+			}
+			
+			// reload current tab
+			if( autorefresh ){
+				chrome.tabs.reload( tab.id );
 			}
 		}
 		
@@ -129,14 +135,8 @@
 			
 			$.each( filters, function( filterIndex, filterValue ){
 				chrome.cookies.getAll( {"domain":filterValue}, function( cookies ){
-					
 					$.each( cookies, function(cookieIndex, cookie){
-						var protocol = cookie.secure ? "https://":"http://";
-						var cookieDetails = {
-							"url":	"http://"+cookie.domain,
-							"name":	cookie.name
-						}
-						chrome.cookies.remove( cookieDetails );
+						removeCookie( cookie );
 					});
 				});
 			});
@@ -147,7 +147,8 @@
 			var filterMap = {};
 			
 			$.each( filters, function( filterIndex, filterValue ){
-				if( filterValue.indexOf(".")!=0 && filterValue.indexOf("http")!=0 ){
+				var filterSegments = filterValue.split('.');
+				if( filterValue.indexOf(".")!=0 && filterValue.indexOf("http")!=0 && filterValue!="localhost" && (filterSegments.length>2 || filterSegments[2]!='local' ) ){
 					filterValue = "."+filterValue;
 				}
 				filterMap[filterValue] = true;
@@ -160,18 +161,25 @@
 					if( filterMap[cookie.domain] ){
 						return;
 					}
-					
-					var protocol = cookie.secure ? "https://":"http://";
-					var cookieDetails = {
-						"url":	"http://"+cookie.domain,
-						"name":	cookie.name
-					}
-					
-					chrome.cookies.remove( cookieDetails );
+					removeCookie( cookie );
 				});
 			});
 		}
-		
+	}
+	
+	/**
+	 * 
+	 * @param  {Object} cookie
+	 */
+	function removeCookie( cookie ){
+		var protocol = cookie.secure ? "https://":"http://";
+		var cookieDetails = {
+			"url":	protocol+cookie.domain,
+			"name":	cookie.name
+		}
+		chrome.cookies.remove( cookieDetails, function( result ){
+			//console.log( 'clear results', result );
+		});
 	}
 	
 })();
