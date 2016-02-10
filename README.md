@@ -1,16 +1,26 @@
-# Clear-Cache
+# Vide ton cache !
 
-## What is this?
+## Pourquoi ?
 
-Clear-Cache is a Google Chrome extension that gives you instant access to clearing your browser data with a single click.
+Chaque service web ayant sa propre politique de cache, et pas mal de gens rebutant devant le mot "paramètres", il faut une solution radicale pour arrêter de devoir répéter le même speech 10 fois par jour (sans compter le fait de stocker chaque version de navigateur dans son petit crâne de développeur mal nourri et blafard).
 
-## Tell me more!
+## Comment ?
 
-The extension allows you to quickly clear your cache without any confirmation dialogs, pop-ups or other annoyances.
+Objectif 20 min pour publier un truc.
 
-This extension takes advantage of new features introduced with Chrome 19, allowing it to clear your browsing data without the usual dialogs and pop-ups.
+Bam, GitHub est bien plus souvent ton ami que Google.
 
-You can customize what and how much of your data you want to clear on the options page, including:
+On joue 10 min avec le javascript, histoire d'éviter d'exécuter n'importe quoi, un poil de CSS parce que "vive les choses simples !", et emballé c'est pesé. Petit commit, petit ajout au Chrome Webstore pour simplifier la diffusion.
+
+## Résultat ?
+
+On en saura plus dans les prochains jours...
+
+
+
+### ...
+
+PS. J'ai gardé telles quelles les fonctionnalités, même si elles sont masquées par défaut (lien "avancé"). En voici la liste (EN) :
 
 * App Cache
 * Cache, Cookies\*
